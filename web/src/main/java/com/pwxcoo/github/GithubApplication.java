@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author pwxcoo
  * @package com.pwxcoo.github
  * @email pwxcoo@gmail.com
- * @date 2018/09/21
- * @time 20:11
+ * @time 2018/09/21 20:11
  * @description
  */
 @SpringBootApplication(scanBasePackages = "com.pwxcoo.github.controller")

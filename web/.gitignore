@@ -35,3 +35,6 @@ mvnw.cmd
 
 ### application.properties ###
 application.properties
+
+### Ali Cloud ###
+nohup.out

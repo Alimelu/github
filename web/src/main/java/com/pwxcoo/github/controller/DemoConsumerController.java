@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author pwxcoo
  * @package com.pwxcoo.github.controller
  * @email pwxcoo@gmail.com
- * @date 2018/09/23
- * @time 16:02
+ * @time 2018/09/23 16:02
  * @description
  */
 @RestController

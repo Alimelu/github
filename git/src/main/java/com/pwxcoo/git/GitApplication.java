@@ -8,8 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @author pwxcoo
  * @package com.pwxcoo.git
  * @email pwxcoo@gmail.com
- * @date 2018/09/23
- * @time 10:26
+ * @time 2018/09/23 10:26
  * @description
  */
 @SpringBootApplication

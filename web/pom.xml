@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>github</name>
-	<description>simple github</description>
+	<description>simple mock github</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -31,7 +31,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!--dubbo & zookeeper-->
+		<!--dubbo-->
 		<dependency>
 			<groupId>com.alibaba.boot</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>

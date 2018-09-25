@@ -7,8 +7,7 @@ import com.pwxcoo.git.service.DemoService;
  * @author pwxcoo
  * @package com.pwxcoo.git.service.impl
  * @email pwxcoo@gmail.com
- * @date 2018/09/23
- * @time 15:56
+ * @time 2018/09/23 15:56
  * @description
  */
 @Service(

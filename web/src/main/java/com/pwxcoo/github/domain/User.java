@@ -4,8 +4,7 @@ package com.pwxcoo.github.domain;
  * @author pwxcoo
  * @package com.pwxcoo.github.domain
  * @email pwxcoo@gmail.com
- * @date 2018/09/23
- * @time 11:20
+ * @time 2018/09/23 11:20
  * @description
  */
 public class User {
