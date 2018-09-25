@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @time 20:11
  * @description
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.pwxcoo.github.controller")
 public class GithubApplication {
 
 	public static void main(String[] args) {

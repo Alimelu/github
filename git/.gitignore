@@ -23,3 +23,14 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Maven ###
+# for Linux(bash)
+mvnw
+# for windows
+mvnw.cmd
+# for machines require maven on PATH
+.mvn
+
+### application.properties ###
+application.properties

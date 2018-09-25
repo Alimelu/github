@@ -22,8 +22,7 @@ dubbo.protocol.port = 20081
 ## RegistryConfig Bean
 dubbo.registry.id = my-registry
 dubbo.registry.protocol = zookeeper
-#dubbo.registry.address = 127.0.0.1:2181
-dubbo.registry.address = 39.108.102.99:2181
+dubbo.registry.address = 127.0.0.1:2181
 
 ## GitServiceConfig
 gitservice.directory = E:/hellowxc/test

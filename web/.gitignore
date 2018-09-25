@@ -32,3 +32,6 @@ mvnw
 mvnw.cmd
 # for machines require maven on PATH
 .mvn
+
+### application.properties ###
+application.properties

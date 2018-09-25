@@ -19,5 +19,4 @@ dubbo.protocol.port = 20080
 
 dubbo.registry.id = dubbo
 dubbo.registry.protocol = zookeeper
-#dubbo.registry.address = 127.0.0.1:2181
-dubbo.registry.address = 39.108.102.99:2181
+dubbo.registry.address = 127.0.0.1:2181
