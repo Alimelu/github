@@ -30,7 +30,7 @@ public class GitServiceImpl implements GitService {
     @Override
     public String initRepository(String username, String repositoryName) {
         try {
-            File dir = new File(String.format("%s/%s/%s/.git", gitServiceDirectory, username, repositoryName));
+            File dir = new File(String.format("%s/%s/%s.git", gitServiceDirectory, username, repositoryName));
             Git.init().setDirectory( dir ).setBare( true ).call();
             return dir.getAbsolutePath();
         } catch (GitAPIException e) {
