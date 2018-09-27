@@ -8,13 +8,131 @@
  */
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id`                INT NOT NULL auto_increment,
+  `user_id`           INT NOT NULL auto_increment,
   `email`             VARCHAR(255) NOT NULL,
   `username`          VARCHAR(255) NOT NULL,
   `password`          VARCHAR(255) NOT NULL,
   `creation_time`     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time` DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`user_id`),
   UNIQUE KEY (`username`),
   UNIQUE KEY (`email`)
 ) engine = innodb;
+
+DROP TABLE IF EXISTS `repository`;
+CREATE TABLE `repository` (
+  `repository_id`     INT NOT NULL auto_increment,
+  `user_id`           INT NOT NULL,
+  `repository_name`   VARCHAR(255) NOT NULL,
+  `repository_star`   INT NOT NULL DEFAULT 0,
+  `repository_fork`   INT NOT NULL DEFAULT 0,
+  `creation_time`     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time` DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`repository_id`),
+  UNIQUE KEY (`user_id`, `repository_name`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `contributor_relationship`;
+CREATE TABLE `contributor_relationship` (
+  `contributor_relationship_id`       INT NOT NULL auto_increment,
+  `user_id`                           INT NOT NULL,
+  `repository_id`                     INT NOT NULL,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (contributor_relationship_id),
+  UNIQUE KEY (`user_id`, `repository_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `follow_relationship`;
+CREATE TABLE `follow_relationship` (
+  `follow_relationship_id`            INT NOT NULL auto_increment,
+  `follower_id`                       INT NOT NULL,
+  `following_id`                      INT NOT NULL,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`follow_relationship_id`),
+  UNIQUE KEY (`follower_id`, `following_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `user_subscription`;
+CREATE TABLE `user_subscription` (
+  `user_subscription_id`              INT NOT NULL auto_increment,
+  `user_id`                           INT NOT NULL,
+  `action`                            INT NOT NULL,       -- 1='follow'
+  `action_id`                         INT NOT NULL,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`user_subscription_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `repository_subscription`;
+CREATE TABLE `repository_subscription` (
+  `repository_subscription_id`        INT NOT NULL auto_increment,
+  `user_id`                           INT NOT NULL,
+  `action`                            INT NOT NULL,       -- 1=star, 2=create, 3=fork
+  `repository_id`                     INT NOT NULL,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`repository_subscription_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `watch_relationship`;
+CREATE TABLE `watch_relationship` (
+  `watch_relationship_id`             INT NOT NULL auto_increment,
+  `user_id`                           INT NOT NULL,
+  `repository_id`                     INT NOT NULL,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`watch_relationship_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE `notification` (
+  `notification_id`                   INT NOT NULL auto_increment,
+  `user_id`                           INT NOT NULL,
+  `repository_id`                     INT NOT NULL,
+  `action`                            INT NOT NULL,     -- 1=pr, 2=issue     
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`notification_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `pull_request`;
+CREATE TABLE `pull_request` (
+  `pull_request_id`                   INT NOT NULL auto_increment,
+  `pull_request_number`               INT NOT NULL,
+  `origin_repository_id`              INT NOT NULL,
+  `next_repository_id`                INT NOT NULL,
+  `status`                            INT NOT NULL,       -- 1=open, 2=closed
+  `comment_count`                     INT NOT NULL DEFAULT 0,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`pull_request_id`),
+  UNIQUE KEY (`pull_request_number`, `origin_repository_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `issue`;
+CREATE TABLE `issue` (
+  `issue_id`                          INT NOT NULL auto_increment,
+  `issue_number`                      INT NOT NULL,
+  `repository_id`                     INT NOT NULL,
+  `user_id`                           INT NOT NULL,
+  `text`                              TEXT NOT NULL,
+  `status`                            INT NOT NULL,       -- 1=open, 2=closed
+  `comment_count`                     INT NOT NULL DEFAULT 0,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`issue_id`),
+  UNIQUE KEY (`issue_number`, `repository_id`)
+) engine = innodb;
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `comment_id`                        INT NOT NULL auto_increment,
+  `comment_number`                    INT NOT NULL,
+  `issue_id`                          INT,
+  `pull_request_id`                   INT,
+  `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
+  `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
+  PRIMARY KEY (`comment_id`)
+) engine innodb;
