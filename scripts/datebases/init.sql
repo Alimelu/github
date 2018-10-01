@@ -8,10 +8,11 @@
  */
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `user_id`           INT NOT NULL auto_increment,
+  `user_id`           BIGINT NOT NULL auto_increment,
   `email`             VARCHAR(255) NOT NULL,
   `username`          VARCHAR(255) NOT NULL,
   `password`          VARCHAR(255) NOT NULL,
+  `salt`              VARCHAR(255) NOT NULL,
   `creation_time`     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time` DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`user_id`),
@@ -21,11 +22,11 @@ CREATE TABLE `user` (
 
 DROP TABLE IF EXISTS `repository`;
 CREATE TABLE `repository` (
-  `repository_id`     INT NOT NULL auto_increment,
-  `user_id`           INT NOT NULL,
+  `repository_id`     BIGINT NOT NULL auto_increment,
+  `user_id`           BIGINT NOT NULL,
   `repository_name`   VARCHAR(255) NOT NULL,
-  `repository_star`   INT NOT NULL DEFAULT 0,
-  `repository_fork`   INT NOT NULL DEFAULT 0,
+  `repository_star`   BIGINT NOT NULL DEFAULT 0,
+  `repository_fork`   BIGINT NOT NULL DEFAULT 0,
   `creation_time`     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time` DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`repository_id`),
@@ -34,9 +35,9 @@ CREATE TABLE `repository` (
 
 DROP TABLE IF EXISTS `contributor_relationship`;
 CREATE TABLE `contributor_relationship` (
-  `contributor_relationship_id`       INT NOT NULL auto_increment,
-  `user_id`                           INT NOT NULL,
-  `repository_id`                     INT NOT NULL,
+  `contributor_relationship_id`       BIGINT NOT NULL auto_increment,
+  `user_id`                           BIGINT NOT NULL,
+  `repository_id`                     BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (contributor_relationship_id),
@@ -45,9 +46,9 @@ CREATE TABLE `contributor_relationship` (
 
 DROP TABLE IF EXISTS `follow_relationship`;
 CREATE TABLE `follow_relationship` (
-  `follow_relationship_id`            INT NOT NULL auto_increment,
-  `follower_id`                       INT NOT NULL,
-  `following_id`                      INT NOT NULL,
+  `follow_relationship_id`            BIGINT NOT NULL auto_increment,
+  `follower_id`                       BIGINT NOT NULL,
+  `following_id`                      BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`follow_relationship_id`),
@@ -56,10 +57,10 @@ CREATE TABLE `follow_relationship` (
 
 DROP TABLE IF EXISTS `user_subscription`;
 CREATE TABLE `user_subscription` (
-  `user_subscription_id`              INT NOT NULL auto_increment,
-  `user_id`                           INT NOT NULL,
-  `action`                            INT NOT NULL,       -- 1='follow'
-  `action_id`                         INT NOT NULL,
+  `user_subscription_id`              BIGINT NOT NULL auto_increment,
+  `user_id`                           BIGINT NOT NULL,
+  `action`                            BIGINT NOT NULL,       -- 1='follow'
+  `action_id`                         BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`user_subscription_id`)
@@ -67,10 +68,10 @@ CREATE TABLE `user_subscription` (
 
 DROP TABLE IF EXISTS `repository_subscription`;
 CREATE TABLE `repository_subscription` (
-  `repository_subscription_id`        INT NOT NULL auto_increment,
-  `user_id`                           INT NOT NULL,
-  `action`                            INT NOT NULL,       -- 1=star, 2=create, 3=fork
-  `repository_id`                     INT NOT NULL,
+  `repository_subscription_id`        BIGINT NOT NULL auto_increment,
+  `user_id`                           BIGINT NOT NULL,
+  `action`                            BIGINT NOT NULL,       -- 1=star, 2=create, 3=fork
+  `repository_id`                     BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`repository_subscription_id`)
@@ -78,9 +79,9 @@ CREATE TABLE `repository_subscription` (
 
 DROP TABLE IF EXISTS `watch_relationship`;
 CREATE TABLE `watch_relationship` (
-  `watch_relationship_id`             INT NOT NULL auto_increment,
-  `user_id`                           INT NOT NULL,
-  `repository_id`                     INT NOT NULL,
+  `watch_relationship_id`             BIGINT NOT NULL auto_increment,
+  `user_id`                           BIGINT NOT NULL,
+  `repository_id`                     BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`watch_relationship_id`)
@@ -88,10 +89,10 @@ CREATE TABLE `watch_relationship` (
 
 DROP TABLE IF EXISTS `notification`;
 CREATE TABLE `notification` (
-  `notification_id`                   INT NOT NULL auto_increment,
-  `user_id`                           INT NOT NULL,
-  `repository_id`                     INT NOT NULL,
-  `action`                            INT NOT NULL,     -- 1=pr, 2=issue     
+  `notification_id`                   BIGINT NOT NULL auto_increment,
+  `user_id`                           BIGINT NOT NULL,
+  `repository_id`                     BIGINT NOT NULL,
+  `action`                            BIGINT NOT NULL,     -- 1=pr, 2=issue     
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`notification_id`)
@@ -99,12 +100,12 @@ CREATE TABLE `notification` (
 
 DROP TABLE IF EXISTS `pull_request`;
 CREATE TABLE `pull_request` (
-  `pull_request_id`                   INT NOT NULL auto_increment,
-  `pull_request_number`               INT NOT NULL,
-  `origin_repository_id`              INT NOT NULL,
-  `next_repository_id`                INT NOT NULL,
-  `status`                            INT NOT NULL,       -- 1=open, 2=closed
-  `comment_count`                     INT NOT NULL DEFAULT 0,
+  `pull_request_id`                   BIGINT NOT NULL auto_increment,
+  `pull_request_number`               BIGINT NOT NULL,
+  `origin_repository_id`              BIGINT NOT NULL,
+  `next_repository_id`                BIGINT NOT NULL,
+  `status`                            BIGINT NOT NULL,       -- 1=open, 2=closed
+  `comment_count`                     BIGINT NOT NULL DEFAULT 0,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`pull_request_id`),
@@ -113,13 +114,13 @@ CREATE TABLE `pull_request` (
 
 DROP TABLE IF EXISTS `issue`;
 CREATE TABLE `issue` (
-  `issue_id`                          INT NOT NULL auto_increment,
-  `issue_number`                      INT NOT NULL,
-  `repository_id`                     INT NOT NULL,
-  `user_id`                           INT NOT NULL,
+  `issue_id`                          BIGINT NOT NULL auto_increment,
+  `issue_number`                      BIGINT NOT NULL,
+  `repository_id`                     BIGINT NOT NULL,
+  `user_id`                           BIGINT NOT NULL,
   `text`                              TEXT NOT NULL,
-  `status`                            INT NOT NULL,       -- 1=open, 2=closed
-  `comment_count`                     INT NOT NULL DEFAULT 0,
+  `status`                            BIGINT NOT NULL,       -- 1=open, 2=closed
+  `comment_count`                     BIGINT NOT NULL DEFAULT 0,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`issue_id`),
@@ -128,10 +129,10 @@ CREATE TABLE `issue` (
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `comment_id`                        INT NOT NULL auto_increment,
-  `comment_number`                    INT NOT NULL,
-  `issue_id`                          INT,
-  `pull_request_id`                   INT,
+  `comment_id`                        BIGINT NOT NULL auto_increment,
+  `comment_number`                    BIGINT NOT NULL,
+  `issue_id`                          BIGINT,
+  `pull_request_id`                   BIGINT,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`comment_id`)

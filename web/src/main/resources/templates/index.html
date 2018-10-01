@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/static/image/favicon.png">
+
+<title>Github - PWXCOO</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Custom styles for this template -->
+<link href="/static/css/home.css" rel="stylesheet">
+</head>
+
+
+<body class="text-center">
+
+
+<form class="form-signin" action="/" method="post">
+    <img class="mb-4" src="/static/image/favicon.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+    <div th:if="${error}" class="alert alert-danger">
+        Invalid username and password.
+    </div>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required
+           autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-outline-dark btn-block" onclick="location.href='/signup'" type="button">Sign up</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2018 PWXCOO</p>
+</form>
+
+
+
+
+</body>
+</html>

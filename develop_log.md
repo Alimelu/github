@@ -2,7 +2,8 @@
 
 - spring boot 热部署, CI & CD
 - ssh 密钥管理
-- 使用 lombok
+- use csrf when register % login
+- ~~使用 lombok~~
 
 ## Log
 

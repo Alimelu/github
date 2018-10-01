@@ -1,7 +1,7 @@
 package com.pwxcoo.git.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.pwxcoo.git.service.DemoService;
+import com.pwxcoo.git.service.RpcService;
 
 /**
  * @author pwxcoo
@@ -16,10 +16,10 @@ import com.pwxcoo.git.service.DemoService;
         protocol = "${dubbo.protocol.id}",
         registry = "${dubbo.registry.id}"
 )
-public class DefaultDemoService implements DemoService {
+public class DefaultRpcService implements RpcService {
 
     public String sayHello(String name) {
-        return "Hello, " + name + " (from Spring Boot)";
+        return "Hello, " + name + " (from Spring Boot), Test RPC Successfully!";
     }
 
 }

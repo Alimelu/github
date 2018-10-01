@@ -7,7 +7,7 @@ package com.pwxcoo.git.service;
  * @time 2018/09/23 15:55
  * @description
  */
-public interface DemoService {
+public interface RpcService {
 
     String sayHello(String name);
 

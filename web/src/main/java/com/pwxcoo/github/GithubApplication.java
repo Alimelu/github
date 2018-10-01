@@ -10,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @time 2018/09/21 20:11
  * @description
  */
-@SpringBootApplication(scanBasePackages = "com.pwxcoo.github.controller")
+//@SpringBootApplication(scanBasePackages = "com.pwxcoo.github.api")
+@SpringBootApplication
 public class GithubApplication {
 
 	public static void main(String[] args) {
