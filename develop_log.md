@@ -3,6 +3,7 @@
 - use csrf when register & login
 - use ajax when register & login
 - universal error handler
+- log out
 - spring boot 热部署, CI & CD
 - ssh 密钥管理
 - ~~使用 lombok~~

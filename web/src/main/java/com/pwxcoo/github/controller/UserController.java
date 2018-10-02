@@ -60,8 +60,11 @@ public class UserController {
             newUser.setUsername(username);
             newUser.setPassword(password);
             if (userService.createUser(newUser)) {
+                User user = userService.getUserByEmail(email);
                 HttpSession session = request.getSession();
-                session.setAttribute("username", username);
+                session.setAttribute("username", user.getUsername());
+                session.setAttribute("avatar", user.getAvatar());
+
                 return "redirect:/";
             } else {
                 modelMap.addAttribute("errorInfo", "Unknown Error, Please Contact: pwxcoo@gmail");

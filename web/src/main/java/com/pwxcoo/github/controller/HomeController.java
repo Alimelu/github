@@ -33,7 +33,7 @@ public class HomeController {
     public String index(ModelMap modelMap) {
         Optional<HttpSession> session = SessionUtil.session();
         if (session.isPresent()) {
-
+            User currentUser = userService.getUserByUsername(session.get().getAttribute("username").toString());
 
             return "home";
         } else {
@@ -53,6 +53,7 @@ public class HomeController {
             User user = userService.getUserByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("username", user.getUsername());
+            session.setAttribute("avatar", user.getAvatar());
 
             if (rememberMe != null) {
                 session.setMaxInactiveInterval(3600 * 24 * 7);

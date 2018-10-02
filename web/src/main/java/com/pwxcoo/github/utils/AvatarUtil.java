@@ -41,6 +41,12 @@ public class AvatarUtil {
 
     }
 
+    public static String generateAvatar() {
+        Avatar avatar = GitHubAvatar.newAvatarBuilder().build();
+
+        return generateAvatar(new Random().nextLong());
+    }
+
     public static Boolean deleteAvatar(String f) {
 
         File file = new File(avatarPath + f);
@@ -52,10 +58,8 @@ public class AvatarUtil {
 
     }
 
-    public static String generateAvatar() {
-        Avatar avatar = GitHubAvatar.newAvatarBuilder().build();
-
-        return generateAvatar(new Random().nextLong());
+    public static String getAvatarUrl(String f) {
+        return "/static/avatar/" + f;
     }
 
 }
