@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,7 +45,6 @@ public class UserController {
     public String signUp(ModelMap modelMap, @Param("email") String email, @Param("username") String username,
                           @Param("password") String password, @Param("confirmPassword") String confirmPassword, HttpServletRequest request) {
         modelMap.addAttribute("error", true);
-        log.info(email + username + password + confirmPassword);
         if (password.equals(confirmPassword) == false) {
             modelMap.addAttribute("errorInfo", "The two password is inconsistent");
             return "signup";
@@ -71,5 +71,11 @@ public class UserController {
                 return "signup";
             }
         }
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String profilePage(ModelMap modelMap, @PathVariable String username) {
+        modelMap.addAttribute("user", userService.getUserByUsername(username));
+        return "user";
     }
 }

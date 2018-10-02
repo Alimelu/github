@@ -12,14 +12,14 @@ html {
 }
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 300px;
+    margin-bottom: 160px;
 }
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 300px;
+    height: 160px;
 }
 
 /* Taller footer on small screens */

@@ -30,6 +30,5 @@ public class AvatarUtilTest {
         String f = AvatarUtil.generateAvatar();
         File file = new File(avatarPath + f);
         Assert.assertEquals(true, AvatarUtil.deleteAvatar(f));
-//        file.delete();
     }
 }

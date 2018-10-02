@@ -28,7 +28,7 @@ public class AvatarUtil {
     }
 
     public static String generateAvatar(Long code) {
-        Avatar avatar = GitHubAvatar.newAvatarBuilder().build();
+        Avatar avatar = GitHubAvatar.newAvatarBuilder().size(256, 256).build();
 
         try {
             String f = RandomStringUtils.randomAlphanumeric(8) + ".png";

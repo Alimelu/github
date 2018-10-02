@@ -4,6 +4,7 @@
 - use ajax when register & login
 - universal error handler
 - log out
+- username and repository name need constraint
 - spring boot 热部署, CI & CD
 - ssh 密钥管理
 - ~~使用 lombok~~
