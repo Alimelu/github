@@ -42,15 +42,15 @@ public class UserMapperTest {
     @Test
     @Rollback
     public void InsertOneUserTest() throws Exception {
-        Assert.assertEquals(null, userMapper.findByEmail("test-pwxcoo@gmail.com"));
+        Assert.assertEquals(null, userMapper.findUserByEmail("test-pwxcoo@gmail.com"));
         int result = userMapper.insertUser("test-pwxcoo", "test-pwxcoo@gmail.com", "123456", "git");
         Assert.assertEquals(1, result);
 
-        User user = userMapper.findByEmail("test-pwxcoo@gmail.com");
+        User user = userMapper.findUserByEmail("test-pwxcoo@gmail.com");
         Assert.assertEquals("test-pwxcoo", user.getUsername());
         Assert.assertEquals("123456", user.getPassword());
         Assert.assertEquals("git", user.getSalt());
-        Assert.assertEquals(user, userMapper.findByUsername("test-pwxcoo"));
+        Assert.assertEquals(user, userMapper.findUserByUsername("test-pwxcoo"));
     }
 
 

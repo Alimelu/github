@@ -29,19 +29,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
-        return userMapper.findByEmail(email);
+        return userMapper.findUserByEmail(email);
     }
 
     @Override
     public User getUserByUsername(String username) {
-        return userMapper.findByUsername(username);
+        return userMapper.findUserByUsername(username);
     }
 
     @Override
     public Boolean createUser(User user) {
         try {
-            user.setSalt(PasswordUtil.getNextSalt().toString());
-            user.setPassword(PasswordUtil.hash(user.getPassword().toCharArray(), user.getSalt().getBytes()).toString());
+            user.setSalt(PasswordUtil.getNextSalt());
+            user.setPassword(PasswordUtil.hash(user.getPassword().toCharArray(), user.getSalt()));
             if (userMapper.insertUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getSalt()) > 0)
                 return true;
         } catch (Exception e) {
@@ -53,10 +53,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean validateUser(String email, String password) {
-        User realUser = userMapper.findByEmail(email);
+        User realUser = userMapper.findUserByEmail(email);
         if (realUser == null) return false;
         log.info(realUser.toString());
-        return realUser.getPassword().equals(PasswordUtil.hash(password.toCharArray(), realUser.getSalt().getBytes()));
+        return PasswordUtil.isExpectedPassword(password.toCharArray(), realUser.getSalt(), realUser.getPassword().toCharArray());
+    }
+
+    @Override
+    public Boolean deleteUserByEmail(String email) {
+        try {
+            userMapper.deleteUserByEmail(email);
+            return true;
+        } catch (Exception e) {
+            log.error("Error when delete user: " + email);
+            return false;
+        }
     }
 
 }

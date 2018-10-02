@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Random;
 
 /**
@@ -31,10 +32,12 @@ public class PasswordUtil {
      *
      * @return a 16 bytes random salt
      */
-    public static byte[] getNextSalt() {
+    public static String getNextSalt() {
         byte[] salt = new byte[16];
         RANDOM.nextBytes(salt);
-        return salt;
+//        return salt;
+        return Base64.getEncoder().encodeToString(salt);
+
     }
 
     /**
@@ -46,12 +49,13 @@ public class PasswordUtil {
      *
      * @return the hashed password with a pinch of salt
      */
-    public static byte[] hash(char[] password, byte[] salt) {
-        PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
+    public static String hash(char[] password, String salt) {
+        PBEKeySpec spec = new PBEKeySpec(password, Base64.getDecoder().decode(salt), ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
         try {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            return skf.generateSecret(spec).getEncoded();
+//            return skf.generateSecret(spec).getEncoded();
+            return Base64.getEncoder().encodeToString(skf.generateSecret(spec).getEncoded());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
         } finally {
@@ -69,8 +73,8 @@ public class PasswordUtil {
      *
      * @return true if the given password and salt match the hashed value, false otherwise
      */
-    public static boolean isExpectedPassword(char[] password, byte[] salt, byte[] expectedHash) {
-        byte[] pwdHash = hash(password, salt);
+    public static boolean isExpectedPassword(char[] password, String salt, char[] expectedHash) {
+        char[] pwdHash = hash(password, salt).toCharArray();
         Arrays.fill(password, Character.MIN_VALUE);
         if (pwdHash.length != expectedHash.length) return false;
         for (int i = 0; i < pwdHash.length; i++) {

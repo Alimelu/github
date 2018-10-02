@@ -1,10 +1,7 @@
 package com.pwxcoo.github.mapper;
 
 import com.pwxcoo.github.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,11 +16,14 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
 
     @Select("SELECT * FROM user WHERE email = #{email}")
-    User findByEmail(@Param("email") String email);
+    User findUserByEmail(@Param("email") String email);
 
     @Select("SELECT * FROM user WHERE username = #{username}")
-    User findByUsername(@Param("username") String username);
+    User findUserByUsername(@Param("username") String username);
 
     @Insert("INSERT INTO USER(username, email, password, salt) VALUES(#{username}, #{email}, #{password}, #{salt})")
     int insertUser(@Param("username") String username, @Param("email") String email, @Param("password") String password, @Param("salt") String salt);
+
+    @Delete("DELETE FROM user WHERE email = #{email}")
+    int deleteUserByEmail(@Param("email") String email);
 }

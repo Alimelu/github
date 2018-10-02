@@ -41,8 +41,9 @@ public class HomeController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String login(ModelMap modelMap, @Param("email") String email, @Param("password") String password, HttpServletRequest request) {
-        log.info("email: " + email + " password: " + password);
+    public String login(ModelMap modelMap, @Param("email") String email, @Param("password") String password,
+                        @Param("rememberMe") String rememberMe, HttpServletRequest request) {
+        log.info("Remember Me: " + rememberMe);
         if (userService.validateUser(email, password) == false) {
             modelMap.addAttribute("error", true);
             return "index";
@@ -50,6 +51,11 @@ public class HomeController {
             User user = userService.getUserByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("username", user.getUsername());
+
+            if (rememberMe != null) {
+                session.setMaxInactiveInterval(3600 * 24 * 7);
+            }
+
             return "redirect:/";
         }
     }

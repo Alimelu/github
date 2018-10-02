@@ -1,6 +1,7 @@
 package com.pwxcoo.github;
 
 import com.pwxcoo.github.api.rpc.RpcConsumerControllerTest;
+import com.pwxcoo.github.controller.UserControllerTest;
 import com.pwxcoo.github.mapper.UserMapperTest;
 import com.pwxcoo.github.utils.PasswordUtilTest;
 import org.junit.Test;
@@ -14,7 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Suite.SuiteClasses({
 		UserMapperTest.class,
 		RpcConsumerControllerTest.class,
-		PasswordUtilTest.class
+		PasswordUtilTest.class,
+		UserControllerTest.class
 })
 public class GithubApplicationTests {
 

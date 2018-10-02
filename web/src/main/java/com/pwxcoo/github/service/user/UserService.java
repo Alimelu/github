@@ -21,4 +21,5 @@ public interface UserService {
 
     Boolean validateUser(String email, String password);
 
+    Boolean deleteUserByEmail(String email);
 }

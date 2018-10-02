@@ -19,15 +19,9 @@ public class PasswordUtilTest {
     @Test
     public void testPasswordUtil() {
         String password = PasswordUtil.generateRandomPassword(20);
-        log.info(password);
-        byte[] salt = PasswordUtil.getNextSalt();
-        for (byte s: salt) {
-            System.out.println(s);
-        }
-//        log.info(salt);
-        System.out.println(salt);
-        byte[] securePassword = PasswordUtil.hash(password.toCharArray(), salt);
-        log.info(securePassword.toString());
-        Assert.assertEquals(true, PasswordUtil.isExpectedPassword(password.toCharArray(), salt, securePassword));
+        String salt = PasswordUtil.getNextSalt();
+        String securePassword = PasswordUtil.hash(password.toCharArray(), salt);
+//        log.info(securePassword.toString());
+        Assert.assertEquals(true, PasswordUtil.isExpectedPassword(password.toCharArray(), salt, securePassword.toCharArray()));
     }
 }
