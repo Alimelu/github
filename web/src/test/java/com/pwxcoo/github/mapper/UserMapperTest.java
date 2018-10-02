@@ -1,6 +1,7 @@
 package com.pwxcoo.github.mapper;
 
 import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.utils.AvatarUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Assert;
@@ -43,11 +44,12 @@ public class UserMapperTest {
     @Rollback
     public void InsertOneUserTest() throws Exception {
         Assert.assertEquals(null, userMapper.findUserByEmail("test-pwxcoo@gmail.com"));
-        int result = userMapper.insertUser("test-pwxcoo", "test-pwxcoo@gmail.com", "123456", "git");
+        int result = userMapper.insertUser("test-pwxcoo", AvatarUtil.generateAvatar(),"test-pwxcoo@gmail.com", "123456", "git");
         Assert.assertEquals(1, result);
 
         User user = userMapper.findUserByEmail("test-pwxcoo@gmail.com");
         Assert.assertEquals("test-pwxcoo", user.getUsername());
+        Assert.assertEquals(true, AvatarUtil.deleteAvatar(user.getAvatar()));
         Assert.assertEquals("123456", user.getPassword());
         Assert.assertEquals("git", user.getSalt());
         Assert.assertEquals(user, userMapper.findUserByUsername("test-pwxcoo"));

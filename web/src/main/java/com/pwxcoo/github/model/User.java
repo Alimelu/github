@@ -13,6 +13,7 @@ import lombok.Data;
 public class User {
 
     private String email;
+    private String avatar;
     private String username;
     private String password;
     private String salt;

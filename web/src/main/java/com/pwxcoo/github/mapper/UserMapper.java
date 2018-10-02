@@ -21,8 +21,8 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE username = #{username}")
     User findUserByUsername(@Param("username") String username);
 
-    @Insert("INSERT INTO USER(username, email, password, salt) VALUES(#{username}, #{email}, #{password}, #{salt})")
-    int insertUser(@Param("username") String username, @Param("email") String email, @Param("password") String password, @Param("salt") String salt);
+    @Insert("INSERT INTO USER(username, avatar, email, password, salt) VALUES(#{username}, #{avatar}, #{email}, #{password}, #{salt})")
+    int insertUser(@Param("username") String username, @Param("avatar") String avatar, @Param("email") String email, @Param("password") String password, @Param("salt") String salt);
 
     @Delete("DELETE FROM user WHERE email = #{email}")
     int deleteUserByEmail(@Param("email") String email);

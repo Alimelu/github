@@ -2,6 +2,7 @@ package com.pwxcoo.github.service.user;
 
 import com.pwxcoo.github.mapper.UserMapper;
 import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.utils.AvatarUtil;
 import com.pwxcoo.github.utils.PasswordUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,8 @@ public class UserServiceImpl implements UserService {
         try {
             user.setSalt(PasswordUtil.getNextSalt());
             user.setPassword(PasswordUtil.hash(user.getPassword().toCharArray(), user.getSalt()));
-            if (userMapper.insertUser(user.getUsername(), user.getEmail(), user.getPassword(), user.getSalt()) > 0)
+            user.setAvatar(AvatarUtil.generateAvatar());
+            if (userMapper.insertUser(user.getUsername(), user.getAvatar(), user.getEmail(), user.getPassword(), user.getSalt()) > 0)
                 return true;
         } catch (Exception e) {
             log.error("Error when insert User: " + user.toString());

@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id`           BIGINT NOT NULL auto_increment,
   `email`             VARCHAR(255) NOT NULL,
+  `avatar`            VARCHAR(255) NOT NULL,
   `username`          VARCHAR(255) NOT NULL,
   `password`          VARCHAR(255) NOT NULL,
   `salt`              VARCHAR(255) NOT NULL,

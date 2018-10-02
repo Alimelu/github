@@ -38,3 +38,6 @@ application.properties
 
 ### Ali Cloud ###
 nohup.out
+
+### Avatar ###
+src/main/resources/static/avatar/

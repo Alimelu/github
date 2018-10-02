@@ -2,6 +2,7 @@ package com.pwxcoo.github.controller;
 
 import com.pwxcoo.github.model.User;
 import com.pwxcoo.github.service.user.UserService;
+import com.pwxcoo.github.utils.AvatarUtil;
 import com.pwxcoo.github.utils.PasswordUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -56,6 +57,7 @@ public class UserControllerTest {
         User user = userService.getUserByEmail("test@test.com");
         Assert.assertEquals("test-test", user.getUsername());
         Assert.assertEquals(true, PasswordUtil.isExpectedPassword("123".toCharArray(), user.getSalt(), user.getPassword().toCharArray()));
+        Assert.assertEquals(true, AvatarUtil.deleteAvatar(user.getAvatar()));
         userService.deleteUserByEmail("test@test.com");
         Assert.assertEquals(null, userService.getUserByEmail("test@test.com"));
     }

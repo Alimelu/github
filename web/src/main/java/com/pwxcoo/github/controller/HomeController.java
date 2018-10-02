@@ -33,6 +33,8 @@ public class HomeController {
     public String index(ModelMap modelMap) {
         Optional<HttpSession> session = SessionUtil.session();
         if (session.isPresent()) {
+
+
             return "home";
         } else {
             return "index";
