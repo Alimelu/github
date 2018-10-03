@@ -1,8 +1,10 @@
 package com.pwxcoo.github.utils;
 
+import com.pwxcoo.github.model.User;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -18,5 +20,12 @@ public class SessionUtil {
     public static Optional<HttpSession> session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return Optional.ofNullable(attr.getRequest().getSession(false)); // true == allow create
+    }
+
+    public static void storeSession(HttpServletRequest request, User user) {
+        HttpSession session = request.getSession();
+        session.setAttribute("username", user.getUsername());
+        session.setAttribute("avatar", user.getAvatar());
+        session.setAttribute("userId", user.getUserId());
     }
 }

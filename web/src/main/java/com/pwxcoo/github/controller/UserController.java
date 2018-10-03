@@ -60,10 +60,7 @@ public class UserController {
             newUser.setUsername(username);
             newUser.setPassword(password);
             if (userService.createUser(newUser)) {
-                User user = userService.getUserByEmail(email);
-                HttpSession session = request.getSession();
-                session.setAttribute("username", user.getUsername());
-                session.setAttribute("avatar", user.getAvatar());
+                SessionUtil.storeSession(request, userService.getUserByEmail(email));
 
                 return "redirect:/";
             } else {
@@ -76,6 +73,7 @@ public class UserController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String profilePage(ModelMap modelMap, @PathVariable String username) {
         modelMap.addAttribute("user", userService.getUserByUsername(username));
+        log.info(userService.getUserByUsername(username).toString());
         return "user";
     }
 }

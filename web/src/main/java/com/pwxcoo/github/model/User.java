@@ -12,8 +12,12 @@ import lombok.Data;
 @Data
 public class User {
 
+    private Long userId;
     private String email;
     private String avatar;
+    private String bio;
+    private String location;
+    private String link;
     private String username;
     private String password;
     private String salt;

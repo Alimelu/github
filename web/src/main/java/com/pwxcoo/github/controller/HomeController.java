@@ -50,13 +50,10 @@ public class HomeController {
             modelMap.addAttribute("error", true);
             return "index";
         } else {
-            User user = userService.getUserByEmail(email);
-            HttpSession session = request.getSession();
-            session.setAttribute("username", user.getUsername());
-            session.setAttribute("avatar", user.getAvatar());
+            SessionUtil.storeSession(request, userService.getUserByEmail(email));
 
             if (rememberMe != null) {
-                session.setMaxInactiveInterval(3600 * 24 * 7);
+                SessionUtil.session().get().setMaxInactiveInterval(3600 * 24 * 7);
             }
 
             return "redirect:/";
