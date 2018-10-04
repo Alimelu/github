@@ -2,6 +2,7 @@ package com.pwxcoo.github.api.restful;
 
 import com.pwxcoo.github.model.Repository;
 import com.pwxcoo.github.service.repository.RepositoryService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,13 @@ import java.util.List;
  * @description
  */
 @RestController
-@RequestMapping("/api/repository")
-public class RepositoryController {
+@RequestMapping(value = "/api/repository")
+public class RepositoryRestController {
 
     @Autowired
     RepositoryService repositoryService;
 
+    @ApiOperation(value="Get all repositories", notes="By username")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public List<Repository> getRepositoriesByUsername(@PathVariable String username) {
         return repositoryService.getRepositoriesByUsername(username);
