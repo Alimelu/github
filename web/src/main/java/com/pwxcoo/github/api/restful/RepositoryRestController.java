@@ -1,7 +1,8 @@
 package com.pwxcoo.github.api.restful;
 
-import com.pwxcoo.github.model.Repository;
+import com.pwxcoo.github.model.data.Repository;
 import com.pwxcoo.github.service.repository.RepositoryService;
+import com.pwxcoo.github.utils.SessionUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,17 @@ public class RepositoryRestController {
     @Autowired
     RepositoryService repositoryService;
 
-    @ApiOperation(value="Get all repositories", notes="By username")
+
+    @ApiOperation(value="Get all repositories by current user", notes="By current user")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public List<Repository> getRepositories() throws Exception{
+        if (SessionUtil.session().isPresent()) {
+            return repositoryService.getRepositoriesByUsername(SessionUtil.session().get().getAttribute("username").toString());
+        } else throw new Exception("发生错误");
+
+    }
+
+    @ApiOperation(value="Get all repositories by username", notes="By username")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public List<Repository> getRepositoriesByUsername(@PathVariable String username) {
         return repositoryService.getRepositoriesByUsername(username);

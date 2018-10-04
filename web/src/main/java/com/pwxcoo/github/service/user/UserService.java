@@ -1,6 +1,6 @@
 package com.pwxcoo.github.service.user;
 
-import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.model.data.User;
 
 /**
  * @author pwxcoo

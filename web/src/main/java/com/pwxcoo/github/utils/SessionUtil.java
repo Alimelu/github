@@ -1,6 +1,6 @@
 package com.pwxcoo.github.utils;
 
-import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.model.data.User;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

@@ -1,4 +1,4 @@
-package com.pwxcoo.github.model;
+package com.pwxcoo.github.model.data;
 
 import lombok.Data;
 

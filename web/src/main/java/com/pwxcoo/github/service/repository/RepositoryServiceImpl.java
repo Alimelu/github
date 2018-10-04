@@ -1,7 +1,7 @@
 package com.pwxcoo.github.service.repository;
 
 import com.pwxcoo.github.mapper.RepositoryMapper;
-import com.pwxcoo.github.model.Repository;
+import com.pwxcoo.github.model.data.Repository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

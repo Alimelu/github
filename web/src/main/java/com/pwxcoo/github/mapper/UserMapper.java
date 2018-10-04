@@ -1,6 +1,6 @@
 package com.pwxcoo.github.mapper;
 
-import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.model.data.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

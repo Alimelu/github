@@ -1,6 +1,6 @@
 package com.pwxcoo.github.mapper;
 
-import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.model.data.User;
 import com.pwxcoo.github.utils.AvatarUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;

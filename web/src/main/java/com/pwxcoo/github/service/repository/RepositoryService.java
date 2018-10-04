@@ -1,6 +1,6 @@
 package com.pwxcoo.github.service.repository;
 
-import com.pwxcoo.github.model.Repository;
+import com.pwxcoo.github.model.data.Repository;
 
 import java.util.List;
 

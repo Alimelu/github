@@ -1,7 +1,7 @@
 package com.pwxcoo.github.service.user;
 
 import com.pwxcoo.github.mapper.UserMapper;
-import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.model.data.User;
 import com.pwxcoo.github.utils.AvatarUtil;
 import com.pwxcoo.github.utils.PasswordUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.pwxcoo.github.controller;
 
-import com.pwxcoo.github.model.User;
+import com.pwxcoo.github.model.data.User;
 import com.pwxcoo.github.service.user.UserService;
 import com.pwxcoo.github.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
