@@ -1,5 +1,6 @@
 package com.pwxcoo.github.model.data;
 
+import com.pwxcoo.github.model.type.Status;
 import lombok.Data;
 
 /**
@@ -17,6 +18,6 @@ public class Issue {
     private Long repositoryId;
     private Long userId;
     private String text;
-    private Integer status;     // 1: 'open', 2: 'closed'
+    private Status status;     // 'open', 'closed'
     private Long commentCount;
 }

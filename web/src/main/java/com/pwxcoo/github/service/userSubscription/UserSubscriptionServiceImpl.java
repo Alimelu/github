@@ -2,6 +2,7 @@ package com.pwxcoo.github.service.userSubscription;
 
 import com.pwxcoo.github.dto.UserSubscriptionDto;
 import com.pwxcoo.github.mapper.UserSubscriptionMapper;
+import com.pwxcoo.github.model.type.Action;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,15 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     UserSubscriptionMapper userSubscriptionMapper;
 
     @Override
-    public List<UserSubscriptionDto> getSubscriptionByUserId(Long userId) {
+    public List<UserSubscriptionDto> getUserSubscriptionByUserId(Long userId) {
         return userSubscriptionMapper.getSubscriptionByUserId(userId);
+    }
+
+    @Override
+    public Boolean insertUserSubscription(Long userId, Action action, Long actionId) {
+        if (userSubscriptionMapper.insertUserSubscription(userId, action, actionId) > 0) {
+            return true;
+        }
+        return false;
     }
 }

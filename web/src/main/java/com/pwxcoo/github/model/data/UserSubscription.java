@@ -1,6 +1,6 @@
 package com.pwxcoo.github.model.data;
 
-import com.pwxcoo.github.model.type.ActionType;
+import com.pwxcoo.github.model.type.Action;
 import lombok.Data;
 
 /**
@@ -15,7 +15,7 @@ public class UserSubscription {
 
     private Long userSubscriptionId;
     private Long userId;
-    private ActionType action;  // 'follow'
+    private Action action;  // 'follow'
     private Long actionId;
 
 }

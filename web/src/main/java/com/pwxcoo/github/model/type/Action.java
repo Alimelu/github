@@ -7,13 +7,13 @@ package com.pwxcoo.github.model.type;
  * @time 2018/10/05 12:04
  * @description
  */
-public enum  ActionType {
+public enum Action {
 
-    FOLLOW("follow");
+    FOLLOW("follow"), STAR("star"), CREATE("create"), FORK("fork"), PULL_REQUEST("pull request"), ISSUE("issue");
 
     private final String actionType;
 
-    ActionType(final String actionType) {
+    Action(final String actionType) {
         this.actionType = actionType;
     }
 

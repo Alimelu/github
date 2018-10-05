@@ -1,5 +1,6 @@
 package com.pwxcoo.github.model.data;
 
+import com.pwxcoo.github.model.type.Action;
 import lombok.Data;
 
 /**
@@ -15,6 +16,6 @@ public class Notification {
     private Long notificationId;
     private Long userId;
     private Long repositoryId;
-    private Integer action;  // 1: 'pull request', 2: 'issue'
+    private Action action;  // 'pull request', 'issue'
 
 }

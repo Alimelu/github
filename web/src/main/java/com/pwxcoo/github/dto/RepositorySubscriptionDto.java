@@ -1,17 +1,17 @@
-package com.pwxcoo.github.model.data;
+package com.pwxcoo.github.dto;
 
 import com.pwxcoo.github.model.type.Action;
 import lombok.Data;
 
 /**
  * @author pwxcoo
- * @package com.pwxcoo.github.model
+ * @package com.pwxcoo.github.dto
  * @email pwxcoo@gmail.com
- * @time 2018/10/03 17:02
+ * @time 2018/10/05 15:42
  * @description
  */
 @Data
-public class RepositorySubscription {
+public class RepositorySubscriptionDto {
 
     private Long repositorySubscriptionId;
     private Long userId;

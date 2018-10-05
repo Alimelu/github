@@ -1,5 +1,6 @@
 package com.pwxcoo.github.model.data;
 
+import com.pwxcoo.github.model.type.Status;
 import lombok.Data;
 
 /**
@@ -16,6 +17,6 @@ public class PullRequest {
     private Long pullRequestNumber;
     private Long originRepositoryId;
     private Long nextRepositoryId;
-    private Integer status;
+    private Status status;
     private Long commentCount;
 }

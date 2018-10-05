@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS `user_subscription`;
 CREATE TABLE `user_subscription` (
   `user_subscription_id`              BIGINT NOT NULL auto_increment,
   `user_id`                           BIGINT NOT NULL,
-  `action`                            INT NOT NULL,       -- 1='follow'
+  `action`                            VARCHAR(255) NOT NULL,       -- 'follow'
   `action_id`                         BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `repository_subscription`;
 CREATE TABLE `repository_subscription` (
   `repository_subscription_id`        BIGINT NOT NULL auto_increment,
   `user_id`                           BIGINT NOT NULL,
-  `action`                            INT NOT NULL,       -- 1=star, 2=create, 3=fork
+  `action`                            VARCHAR(255) NOT NULL,       -- 'star', 'create', 'fork'
   `repository_id`                     BIGINT NOT NULL,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
@@ -97,7 +97,7 @@ CREATE TABLE `notification` (
   `notification_id`                   BIGINT NOT NULL auto_increment,
   `user_id`                           BIGINT NOT NULL,
   `repository_id`                     BIGINT NOT NULL,
-  `action`                            INT NOT NULL,     -- 1=pr, 2=issue
+  `action`                            VARCHAR(255) NOT NULL,     -- 'pr', 'issue'
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
   PRIMARY KEY (`notification_id`)
@@ -109,7 +109,7 @@ CREATE TABLE `pull_request` (
   `pull_request_number`               BIGINT NOT NULL,
   `origin_repository_id`              BIGINT NOT NULL,
   `next_repository_id`                BIGINT NOT NULL,
-  `status`                            INT NOT NULL,       -- 1=open, 2=closed
+  `status`                            VARCHAR(255) NOT NULL,       -- 'open', 'closed'
   `comment_count`                     BIGINT NOT NULL DEFAULT 0,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,
@@ -124,7 +124,7 @@ CREATE TABLE `issue` (
   `repository_id`                     BIGINT NOT NULL,
   `user_id`                           BIGINT NOT NULL,
   `text`                              TEXT NOT NULL,
-  `status`                            INT NOT NULL,       -- 1=open, 2=closed
+  `status`                            VARCHAR(255) NOT NULL,       -- 'open', 'closed'
   `comment_count`                     BIGINT NOT NULL DEFAULT 0,
   `creation_time`                     DATETIME NOT NULL DEFAULT current_timestamp,
   `modification_time`                 DATETIME NOT NULL DEFAULT current_timestamp on UPDATE current_timestamp,

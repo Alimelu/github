@@ -57,6 +57,6 @@ public class RepositoryRestController {
         if (repositoryService.createRepository(repository)) {
             return repositoryService.getRepositoryByUserIdAndRepositoryName(repository.getUserId(), repository.getRepositoryName());
         }
-        throw new ServerException("new repository failed!");
+        throw new ServerException("create repository failed!");
     }
 }

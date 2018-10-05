@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="button">
+    <button th:if="${user.username != session.username}" @click="changeStatus" id="follow_button" type="button" class="btn" style="width: 300px; margin-bottom: 20px">{{status}}</button>
+    <script>
+        const nowname = window.location.pathname.substring(1);
+        const follow_button = new Vue({
+            el: '#follow_button',
+            data: {
+                status: ''
+            },
+            methods: {
+                getStatus: function () {
+
+                    fetch(`/api/followRelationship/${nowname}`)
+                        .then(res => res.json())
+                        .then(res => {
+                            console.log(res);
+                            if (res === true) {
+                                this.status = 'unfollow';
+                            } else {
+                                this.status = 'follow';
+                            }
+                        })
+                },
+                changeStatus: function () {
+
+                    if (this.status === 'unfollow') {
+                        fetch(`/api/followRelationship/${nowname}`, {
+                                method: "DELETE",
+                            })
+                            .then(res => res.json().then(data => ({status: res.status, body: data})))
+                            .then(res => {
+
+                                if (res.status === 200 && res.body === true) {
+                                    this.status = 'follow'
+                                }
+
+                            })
+                    } else {
+                        fetch(`/api/followRelationship/`, {
+                            method: "POST",
+                            headers:{
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                followingUsername: nowname
+                            })
+                        })
+                            .then(res => res.json().then(data => ({status: res.status, body: data})))
+                            .then(res => {
+                                if (res.status === 200 && res.body === true) {
+                                    this.status = 'unfollow'
+                                }
+
+                            })
+                    }
+                }
+            }
+        })
+        follow_button.getStatus();
+    </script>
+</div>
+
+</body>
+</html>
