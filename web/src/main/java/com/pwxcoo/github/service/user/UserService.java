@@ -13,6 +13,8 @@ public interface UserService {
 
     Boolean checkUserIsExist(String email, String username);
 
+    User getUserByUserId(Long userId);
+
     User getUserByEmail(String email);
 
     User getUserByUsername(String username);

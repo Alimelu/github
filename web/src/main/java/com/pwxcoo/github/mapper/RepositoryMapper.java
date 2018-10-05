@@ -1,5 +1,6 @@
 package com.pwxcoo.github.mapper;
 
+import com.pwxcoo.github.dto.RepositoryDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,13 +20,12 @@ import java.util.List;
 @Repository
 public interface RepositoryMapper {
 
-//    @Select("SELECT repository_name AS repositoryName, repository_star AS repositoryStar, " +
-//                    "repository_fork AS repositoryFork, description AS description " +
-//            "FROM repository LEFT JOIN user ON repository.user_id = user.user_id " +
-//            "WHERE username = #{username}")
     @Select("SELECT * FROM repository LEFT JOIN user ON repository.user_id = user.user_id WHERE username = #{username}")
-    List<com.pwxcoo.github.model.data.Repository> getRepositoriesByUsername(@Param("username") String username);
+    List<RepositoryDto> getRepositoriesByUsername(@Param("username") String username);
 
-    @Insert("INSERT INTO repository(user_id, repository_name) VALUES(#{user_id}, #{repository_name})")
-    int insertRepository(@Param("user_id") Long userId, @Param("repository_name") String repositoryName);
+    @Select("SELECT * FROM repository LEFT JOIN user ON repository.user_id = user.user_id WHERE repository.user_id = #{user_id} AND repository.repository_name = #{repository_name}")
+    RepositoryDto getRepositoryByRepositoryNameAndUserId(@Param("user_id") Long userId, @Param("repository_name") String repositoryName);
+
+    @Insert("INSERT INTO repository(user_id, repository_name, description) VALUES(#{user_id}, #{repository_name}, #{description})")
+    int insertRepository(@Param("user_id") Long userId, @Param("repository_name") String repositoryName, @Param("description") String description);
 }

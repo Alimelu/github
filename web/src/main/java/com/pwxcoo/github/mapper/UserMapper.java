@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
 
+    @Select("SELECT * FROM user WHERE user_id = #{user_id}")
+    User findUserByUserId(@Param("user_id") Long userId);
+
     @Select("SELECT * FROM user WHERE email = #{email}")
     User findUserByEmail(@Param("email") String email);
 

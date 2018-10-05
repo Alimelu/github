@@ -1,5 +1,6 @@
 package com.pwxcoo.github.service.repository;
 
+import com.pwxcoo.github.dto.RepositoryDto;
 import com.pwxcoo.github.model.data.Repository;
 
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.List;
  */
 public interface RepositoryService {
 
-    List<Repository> getRepositoriesByUsername(String username);
+    List<RepositoryDto> getRepositoriesByUsername(String username);
 
     Boolean createRepository(Repository repository);
+
+    RepositoryDto getRepositoryByUserIdAndRepositoryName(Long userId, String repositoryName);
 }

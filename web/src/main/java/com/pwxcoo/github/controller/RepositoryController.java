@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RepositoryController {
 
 
-    @RequestMapping(value = "/{username}/repository/{repositoryName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{username}/{repositoryName}", method = RequestMethod.GET)
     public String getRepository(ModelMap modelMap, @PathVariable("username") String username, @PathVariable("repositoryName") String repositoryName) {
         log.info("username: " + username  + " repositoryName: " + repositoryName);
         return "code";

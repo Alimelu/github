@@ -1,6 +1,7 @@
 package com.pwxcoo.github.controller;
 
 import com.pwxcoo.github.model.data.User;
+import com.pwxcoo.github.model.exception.NotFoundPageExcetpion;
 import com.pwxcoo.github.service.user.UserService;
 import com.pwxcoo.github.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -71,8 +72,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public String profilePage(ModelMap modelMap, @PathVariable String username) {
-        modelMap.addAttribute("user", userService.getUserByUsername(username));
+    public String profilePage(ModelMap modelMap, @PathVariable String username) throws NotFoundPageExcetpion {
+        User user =  userService.getUserByUsername(username);
+        if (user == null) throw new NotFoundPageExcetpion("没有这个用户");
+
+        modelMap.addAttribute("user", user);
         log.info(userService.getUserByUsername(username).toString());
         return "user";
     }

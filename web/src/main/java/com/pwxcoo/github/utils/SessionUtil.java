@@ -28,4 +28,16 @@ public class SessionUtil {
         session.setAttribute("avatar", user.getAvatar());
         session.setAttribute("userId", user.getUserId());
     }
+
+    public static Long getUserId() {
+        return (Long)session().get().getAttribute("userId");
+    }
+
+    public static String getAvatar() {
+        return session().get().getAttribute("avatar").toString();
+    }
+
+    public static String getUsername() {
+        return session().get().getAttribute("username").toString();
+    }
 }

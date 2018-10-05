@@ -1,5 +1,5 @@
 /**
- * @author pwxcoo
+ * @author pwxcoo0
  * @package com.pwxcoo.github
  * @email pwxcoo@gmail.com
  * @date 2018/09/21
@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS `repository`;
 CREATE TABLE `repository` (
   `repository_id`     BIGINT NOT NULL auto_increment,
   `user_id`           BIGINT NOT NULL,
-  `description`       VARCHAR(255) NOT NULL DEFAULT 'no description',
+  `description`       VARCHAR(255) NOT NULL,
   `repository_name`   VARCHAR(255) NOT NULL,
   `repository_star`   INT NOT NULL DEFAULT 0,
   `repository_fork`   INT NOT NULL DEFAULT 0,

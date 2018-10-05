@@ -15,7 +15,7 @@ public class Repository {
 
     private Long repositoryId;
     private Long userId;
-    private String description;
+    private String description = "no description";
     private String repositoryName;
     private Integer repositoryStar;
     private Integer repositoryFork;

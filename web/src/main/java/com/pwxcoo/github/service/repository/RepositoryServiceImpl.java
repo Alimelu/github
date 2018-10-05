@@ -1,5 +1,6 @@
 package com.pwxcoo.github.service.repository;
 
+import com.pwxcoo.github.dto.RepositoryDto;
 import com.pwxcoo.github.mapper.RepositoryMapper;
 import com.pwxcoo.github.model.data.Repository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +24,14 @@ public class RepositoryServiceImpl implements RepositoryService{
     RepositoryMapper repositoryMapper;
 
     @Override
-    public List<Repository> getRepositoriesByUsername(String username) {
+    public List<RepositoryDto> getRepositoriesByUsername(String username) {
         return repositoryMapper.getRepositoriesByUsername(username);
     }
 
     @Override
     public Boolean createRepository(Repository repository) {
         try {
-            if (repositoryMapper.insertRepository(repository.getUserId(), repository.getRepositoryName()) > 0)
+            if (repositoryMapper.insertRepository(repository.getUserId(), repository.getRepositoryName(), repository.getDescription()) > 0)
                 return true;
             else {
                 log.error("Unknown Error when insert Repository: " + repository.toString());
@@ -40,5 +41,10 @@ public class RepositoryServiceImpl implements RepositoryService{
             log.error("Error when insert Repository: " + repository.toString());
             return false;
         }
+    }
+
+    @Override
+    public RepositoryDto getRepositoryByUserIdAndRepositoryName(Long userId, String repositoryName) {
+        return repositoryMapper.getRepositoryByRepositoryNameAndUserId(userId, repositoryName);
     }
 }

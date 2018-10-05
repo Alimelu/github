@@ -1,18 +1,14 @@
 package com.pwxcoo.github.exception;
 
-import com.pwxcoo.github.model.exception.NotFoundException;
-import com.pwxcoo.github.model.response.RestfulExceptionInfo;
-import com.pwxcoo.github.model.exception.ServerException;
+import com.pwxcoo.github.model.exception.NotFoundPageExcetpion;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author pwxcoo
@@ -25,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    public static final String DEFAULT_ERROR_VIEW = "error";
+    public static final String DEFAULT_ERROR_VIEW = "default_error";
+    public static final String NOT_FOUND_ERROR_VIEW = "not_found_error";
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -40,24 +37,17 @@ public class GlobalExceptionHandler {
         return modelAndView;
     }
 
-    @ExceptionHandler(value = ServerException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public RestfulExceptionInfo ServerErrorHandler(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Exception e) throws ServerException {
-        return new RestfulExceptionInfo(org.apache.http.HttpStatus.SC_INTERNAL_SERVER_ERROR,
-                                e.getMessage(),
-                                httpServletRequest.getRequestURL().toString());
-    }
-
-    @ExceptionHandler(value = NotFoundException.class)
-    @ResponseBody
+    @ExceptionHandler(value = NotFoundPageExcetpion.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public RestfulExceptionInfo NotFoundErrorHandler(HttpServletRequest httpServletRequest, ServerException e) {
-        return new RestfulExceptionInfo(org.apache.http.HttpStatus.SC_NOT_FOUND,
-                e.getMessage(),
-                httpServletRequest.getRequestURL().toString());
+    public ModelAndView  NotFoundPageErrorHandler(HttpServletRequest httpServletRequest, NotFoundPageExcetpion e) throws Exception {
+        log.error(e.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("username", httpServletRequest.getRequestURI().substring(1));
+        modelAndView.addObject("exception", e);
+        modelAndView.setViewName(NOT_FOUND_ERROR_VIEW);
+
+        return modelAndView;
     }
-
-
 
 }

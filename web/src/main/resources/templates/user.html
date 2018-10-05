@@ -6,7 +6,7 @@
     <title th:text="${#strings.substring(#httpServletRequest.requestURI, 1)} + ' - PWXCOO'"></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/static/image/favicon.png">
+    <link rel="icon" href="/static/image/favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-sm-4" th:object="${user}">
             <h2>About Me</h2>
-            <div class="fakeimg"><img alt="logo" style="height: 256px; width: 256px;" th:src="'/static/avatar/' + *{avatar}"/></div>
+            <div class="fakeimg"><img class="rounded" alt="avatar" style="height: 256px; width: 256px;" th:src="'/static/avatar/' + *{avatar}"/></div>
 
             <h3 th:text="*{username}"></h3>
             <p th:if="*{bio == null}">Hello World~</p>
@@ -58,11 +58,9 @@
             <div id="app" class="container mt-3" v-cloak>
                 <ul class="nav nav-tabs">
                     <li class="nav-item active">
-                        <!--href="@{/api/repository/{username}(username=${user.username})}"-->
                         <a @click="searchRepository" data-target="#repositories" class="nav-link media_node active span" id="repositories_tab" data-toggle="tabajax" rel="tooltip"> Repositories </a>
                     </li>
                     <li class="nav-item">
-                        <!--href="/gh/gist/response.html/3843301/"-->
                         <a @click="searchFollowers" data-target="#followers" class="nav-link media_node span" id="followers_tab" data-toggle="tabajax" rel="tooltip"> Followers</a>
                     </li>
                     <li class="nav-item">
