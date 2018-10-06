@@ -24,6 +24,11 @@ public class RepositoryServiceImpl implements RepositoryService{
     RepositoryMapper repositoryMapper;
 
     @Override
+    public List<RepositoryDto> getRandomRepository(Integer limitRows) {
+        return repositoryMapper.getRandomRepository(limitRows);
+    }
+
+    @Override
     public List<RepositoryDto> getRepositoriesByUsername(String username) {
         return repositoryMapper.getRepositoriesByUsername(username);
     }

@@ -20,6 +20,20 @@ import java.util.List;
 @Repository
 public interface RepositoryMapper {
 
+    @Select("SELECT \n" +
+            "    * \n" +
+            "FROM \n" +
+            "        user \n" +
+            "    JOIN\n" +
+            "        repository\n" +
+            "    ON \n" +
+            "        user.user_id = repository.user_id\n" +
+            "ORDER BY \n" +
+            "    RAND()\n" +
+            "LIMIT\n" +
+            "    #{limit_rows};")
+    List<RepositoryDto> getRandomRepository(@Param("limit_rows") Integer limitRows);
+
     @Select("SELECT * FROM repository LEFT JOIN user ON repository.user_id = user.user_id WHERE username = #{username}")
     List<RepositoryDto> getRepositoriesByUsername(@Param("username") String username);
 

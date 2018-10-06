@@ -15,9 +15,9 @@ public class User {
     private Long userId;
     private String email;
     private String avatar;
-    private String bio;
-    private String location;
-    private String link;
+    private String bio = "No bio yet";
+    private String location = "Earth";
+    private String link = "https://pwxcoo.github.io";
     private String username;
     private String password;
     private String salt;

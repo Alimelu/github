@@ -3,10 +3,13 @@ package com.pwxcoo.github.service.followRelationship;
 import com.pwxcoo.github.dto.FollowRelationshipDto;
 import com.pwxcoo.github.mapper.FollowRelationshipMapper;
 import com.pwxcoo.github.mapper.UserMapper;
+import com.pwxcoo.github.mapper.UserSubscriptionMapper;
 import com.pwxcoo.github.model.data.FollowRelationship;
+import com.pwxcoo.github.model.type.Action;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class FollowRelationshipServiceImpl implements FollowRelationshipService{
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    UserSubscriptionMapper userSubscriptionMapper;
 
     @Override
     public Boolean checkFollowRelationshipByUserId(Long followerId, Long followingId) {
@@ -48,8 +54,10 @@ public class FollowRelationshipServiceImpl implements FollowRelationshipService{
     }
 
     @Override
+    @Transactional
     public Boolean addFollowRelationship(Long followerId, Long followingId) {
         if (followRelationshipMapper.addFollowRelationship(followerId, followingId) > 0) {
+            userSubscriptionMapper.insertUserSubscription(followerId, Action.FOLLOW, followingId);
             return true;
         } else {
             return false;

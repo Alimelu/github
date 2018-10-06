@@ -1,7 +1,8 @@
 package com.pwxcoo.github.dto;
 
-import com.pwxcoo.github.model.type.Action;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author pwxcoo
@@ -13,9 +14,13 @@ import lombok.Data;
 @Data
 public class UserSubscriptionDto {
 
-    private Long userSubscriptionId;
     private Long userId;
-    private Action action;  // 'follow'
-    private Long actionId;
+    private String username;
+    private String userAvatar;
+    private String action;  // 'follow'
+    private String actionObject;
+    private String actionAvatar;
+    private String actionBio;
+    private Date time;
 
 }

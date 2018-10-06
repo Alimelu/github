@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <title>Github - PWXCOO</title>
     <meta charset="utf-8">
@@ -12,6 +13,9 @@
 
     <!--Vue-->
     <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
+
+    <!--Moment.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="/static/css/home.css" rel="stylesheet">
@@ -41,24 +45,48 @@
                     </div>
                     <div id="repos" v-cloak>
                         <div v-for="repository in repositories" v-cloak>
-                            <h5><i class="fa fa-folder-open"></i> <a href="">{{repository.username + '/' + repository.repositoryName}} </a></h5>
+                            <h5><i class="fa fa-folder-open"></i> <a v-bind:href="repository.username + '/' + repository.repositoryName">{{repository.username + '/' + repository.repositoryName}} </a></h5>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 bg-warning">
+            <div class="col-6">
                 <div class="container">
-                    <div id="subs" v-cloak>
+                    <div id="subs" v-cloak style="margin-top: 20px; margin-bottom: 10px;">
                         <div v-for="subscription in subscriptions" v-cloak>
-                            d
+
+                            <div class="sub-container">
+                                <img v-bind:src="'/static/avatar/' + subscription.userAvatar" alt="Avatar" style="width: 64px; height: 64px;">
+                                    <b><a v-bind:href="'/' + subscription.username" v-text="subscription.username"></a></b>
+                                    <span v-text="subscription.action.toLowerCase()"></span>
+                                    <b><a v-bind:href="'/' + subscription.actionObject" v-text="subscription.actionObject"></a></b>
+
+                                    <p>
+                                        <img v-bind:src="'/static/avatar/' + subscription.actionAvatar" alt="Avatar" style="width: 32px; height: 32px;">
+                                        <b v-text="subscription.actionBio"></b>
+                                    </p>
+                                    <span class="time-right" v-text="moment(subscription.time).fromNow()">11:00</span>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="col-3 bg-success">
+            <div class="col-3">
                 <div class="container">
-                    .col-3
+                    <h2  style="margin-top: 20px; margin-bottom: 10px;"><i class="fa fa-cc-discover"></i> Discover</h2>
+                    <div id="recommends" class="card-deck" v-cloak>
+                        <div class="card" >
+                            <!-- set a width on the image otherwise it will expand to full width       -->
+                            <img class="card-img-top img-fluid" src="/static/image/git-discover-400x200.png" alt="repository link" width="400">
+                            <div class="card-body" v-for="recommend in recommends">
+                                <h5 class="card-title"><a v-bind:href="'/' + recommend.username + '/' + recommend.repositoryName" v-text="recommend.username + '/' + recommend.repositoryName"></a></h5>
+                                <p class="card-text"  v-text="recommend.description"></p>
+                                <hr>
+                            </div>
+                        </div>
                 </div>
 
             </div>
@@ -72,6 +100,8 @@
 </body>
 
 <script>
+    const loginName = $('#session-name').text();
+
     const repos = new Vue({
         el: '#repos',
         data: {
@@ -79,7 +109,7 @@
         },
         methods: {
             searchRepository: function () {
-                fetch(`/api/repository/`)
+                fetch(`/api/repository/${loginName}`)
                     .then(res => res.json())
                     .then(res => {
                         console.log(res);
@@ -96,8 +126,11 @@
             subscriptions: [],
         },
         methods: {
+            moment: function () {
+                return moment();
+            },
             searchSubscriptions: function () {
-                fetch(`/api/userSubscription/`)
+                fetch(`/api/userSubscription/${loginName}`)
                     .then(res => res.json())
                     .then(res => {
                         console.log(res);
@@ -107,5 +140,23 @@
         }
     });
     subs.searchSubscriptions()
+
+    const recommends = new Vue({
+        el: '#recommends',
+        data: {
+            recommends: [],
+        },
+        methods: {
+            searchRepository: function () {
+                fetch(`/api/random/repository/`)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res);
+                        this.recommends = res;
+                    });
+            },
+        }
+    });
+    recommends.searchRepository();
 </script>
 </html>

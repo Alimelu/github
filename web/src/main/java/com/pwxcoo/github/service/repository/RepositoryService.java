@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface RepositoryService {
 
+    List<RepositoryDto> getRandomRepository(Integer limitRows);
+
     List<RepositoryDto> getRepositoriesByUsername(String username);
 
     Boolean createRepository(Repository repository);

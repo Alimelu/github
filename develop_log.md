@@ -1,18 +1,27 @@
 ## Todo
 
+- **repository_subscription in home**
 - use csrf when register & login
 - use ajax when register & login
 - log out
 - username and repository name need constraint
 - spring boot 热部署, CI & CD
 - ssh 密钥管理
+- JWT in restful authentication
+- recommend in home
 - ~~使用 lombok~~
 - ~~universal error handler~~
 
 ## Log
 
+- 20181006:
+    - user profile ui
+    - discover & user_subscription in home
+- 20181005:
+    - new repository module
+    - follow function 
 - 20181004：
-    - code highlight and line nuber
+    - code highlight and line number
     - 异常处理模块
 - 20181003:
     - 添加 DAO

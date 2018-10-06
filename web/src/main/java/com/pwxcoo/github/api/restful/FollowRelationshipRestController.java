@@ -46,6 +46,7 @@ public class FollowRelationshipRestController {
 
         log.info(followRelationshipDto.toString());
         if (followRelationshipService.addFollowRelationship(SessionUtil.getUsername(),followRelationshipDto.getFollowingUsername())) {
+
             return followRelationshipService.checkFollowRelationshipByUsername(SessionUtil.getUsername(),followRelationshipDto.getFollowingUsername());
         }
         throw new ServerException("create follow relationship failed!");
