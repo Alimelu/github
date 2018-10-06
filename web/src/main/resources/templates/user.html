@@ -81,7 +81,8 @@
                     <div  class="container tab-pane" id="followers" v-cloak>
                         <div v-for="follower in followers">
                             <hr>
-                            <h4><a v-bind:href="'./' + follower.repositoryName"><b v-text="follower.repositoryName"></b></a></h4>
+                            <img class="img-valign" v-bind:src="'/static/avatar/' + follower.followerAvatar" alt="follower-avatar" />
+                            <span class="img-text"><a v-bind:href="'/' + follower.followerUsername"><b v-text="follower.followerUsername"></b></a></span>
                             <hr>
                         </div>
 
@@ -89,7 +90,9 @@
                     <div class="container tab-pane  urlbox span8" id="following" v-cloak>
                         <div v-for="following in followings">
                             <hr>
-                            <h4><a v-bind:href="'./' + following.repositoryName"><b v-text="following.repositoryName"></b></a></h4>
+                            <img class="img-valign" v-bind:src="'/static/avatar/' + following.followingAvatar" alt="following-avatar" />
+                            <span class="img-text"><a v-bind:href="'./' + following.followingUsername"><b v-text="following.followingUsername"></b></a></span>
+
                             <hr>
                         </div>
                     </div>

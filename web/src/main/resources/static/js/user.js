@@ -1,3 +1,4 @@
+const nowuser =window.location.pathname.substr(1);
 const app = new Vue({
     el: '#app',
     data: {
@@ -7,7 +8,7 @@ const app = new Vue({
     },
     methods: {
         searchRepository: function (event) {
-            fetch(`/api/repository/${window.location.pathname.substr(1)}`)
+            fetch(`/api/repository/${nowuser}`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
@@ -16,7 +17,7 @@ const app = new Vue({
             $(event.target).tab('show');
         },
         searchFollowers: function (event) {
-            fetch(`/api/repository/${window.location.pathname.substr(1)}`)
+            fetch(`/api/follower/${nowuser}/`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
@@ -26,7 +27,7 @@ const app = new Vue({
             $(event.target).tab('show');
         },
         searchFollowing: function (event) {
-            fetch(`/api/repository/${window.location.pathname.substr(1)}`)
+            fetch(`/api/following/${nowuser}/`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);

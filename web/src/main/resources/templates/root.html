@@ -37,7 +37,8 @@
                     <img alt="logo" style="width:30px;"  th:src="'/static/avatar/' + ${session.avatar}" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <h5 class="dropdown-header" th:text="'Signed in as ' + ${session.username}"></h5>
+                    <h5 class="dropdown-header">Signed in as <span id='session-name' th:text="${session.username}"></span></h5>
+                    <!--<h5 id='session-name' class="dropdown-header" th:text="'Signed in as ' + ${session.username}" th:value="${session.username}"></h5>-->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" th:href="@{/{username}(username=${session.username})}">Your Profile</a>
                     <a class="dropdown-item" href="#">Your Followers</a>

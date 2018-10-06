@@ -82,3 +82,16 @@ td.hljs-ln-code {
     white-space: pre;
     padding-left: 10px;
 }
+
+/* follower & following module */
+.img-valign {
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    margin-bottom: 0.75em;
+}
+
+.img-text {
+    margin-left: 20px;
+    font-size: 24px;
+}

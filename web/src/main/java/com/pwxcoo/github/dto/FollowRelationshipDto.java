@@ -14,6 +14,8 @@ public class FollowRelationshipDto {
 
     private Long followerId;
     private String followerUsername;
+    private String followerAvatar;
     private Long followingId;
     private String followingUsername;
+    private String followingAvatar;
 }

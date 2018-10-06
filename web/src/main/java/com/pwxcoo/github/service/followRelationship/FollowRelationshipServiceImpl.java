@@ -1,11 +1,14 @@
 package com.pwxcoo.github.service.followRelationship;
 
+import com.pwxcoo.github.dto.FollowRelationshipDto;
 import com.pwxcoo.github.mapper.FollowRelationshipMapper;
 import com.pwxcoo.github.mapper.UserMapper;
 import com.pwxcoo.github.model.data.FollowRelationship;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author pwxcoo
@@ -77,5 +80,25 @@ public class FollowRelationshipServiceImpl implements FollowRelationshipService{
     public Boolean deleteFollowRelationship(String followerUsername, String followingUsername) {
         return deleteFollowRelationship(userMapper.findUserByUsername(followerUsername).getUserId(),
                 userMapper.findUserByUsername(followingUsername).getUserId());
+    }
+
+    @Override
+    public List<FollowRelationshipDto> getAllFollowingByFollowerId(Long followerId) {
+        return followRelationshipMapper.getAllFollowingByFollowerId(followerId);
+    }
+
+    @Override
+    public List<FollowRelationshipDto> getAllFollowingByFollowerName(String followerName) {
+        return followRelationshipMapper.getAllFollowingByFollowerId(userMapper.findUserByUsername(followerName).getUserId());
+    }
+
+    @Override
+    public List<FollowRelationshipDto> getAllFollowerByFollowingId(Long followingId) {
+        return followRelationshipMapper.getAllFollowerByFollowingId(followingId);
+    }
+
+    @Override
+    public List<FollowRelationshipDto> getAllFollowerByFollowingName(String followingUsername) {
+        return followRelationshipMapper.getAllFollowerByFollowingId(userMapper.findUserByUsername(followingUsername).getUserId());
     }
 }

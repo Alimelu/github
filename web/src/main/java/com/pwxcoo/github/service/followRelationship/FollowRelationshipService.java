@@ -1,6 +1,9 @@
 package com.pwxcoo.github.service.followRelationship;
 
+import com.pwxcoo.github.dto.FollowRelationshipDto;
 import com.pwxcoo.github.model.data.FollowRelationship;
+
+import java.util.List;
 
 /**
  * @author pwxcoo
@@ -26,4 +29,12 @@ public interface FollowRelationshipService {
     Boolean deleteFollowRelationship(Long followerId, Long followingId);
 
     Boolean deleteFollowRelationship(String followerUsername, String followingUsername);
+
+    List<FollowRelationshipDto> getAllFollowingByFollowerId(Long followerId);
+
+    List<FollowRelationshipDto> getAllFollowingByFollowerName(String followerName);
+
+    List<FollowRelationshipDto> getAllFollowerByFollowingId(Long followingId);
+
+    List<FollowRelationshipDto> getAllFollowerByFollowingName(String followingUsername);
 }
