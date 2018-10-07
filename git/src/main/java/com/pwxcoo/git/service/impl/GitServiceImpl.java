@@ -1,10 +1,10 @@
 package com.pwxcoo.git.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.pwxcoo.git.api.GitHelper;
 import com.pwxcoo.git.service.GitService;
-import org.eclipse.jgit.api.Git;
+import com.pwxcoo.git.util.GitUtil;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,18 +24,24 @@ import java.io.IOException;
 )
 public class GitServiceImpl implements GitService {
 
-    @Value("${gitservice.directory}")
-    private String gitServiceDirectory;
+    @Override
+    public String createNewRepository(String username, String repositoryName) throws GitAPIException, IOException {
+        return createNewRepository(GitUtil.getFile(username, repositoryName));
+    }
 
     @Override
-    public String initRepository(String username, String repositoryName) {
-        try {
-            File dir = new File(String.format("%s/%s/%s.git", gitServiceDirectory, username, repositoryName));
-            Git.init().setDirectory( dir ).setBare( true ).call();
-            return dir.getAbsolutePath();
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        }
+    public String createNewRepository(File file) throws GitAPIException, IOException {
+        File f = GitHelper.createNewRepository(file);
+        return f.getAbsolutePath();
+    }
+
+    @Override
+    public void deleteRepository(File file) throws IOException {
+        GitHelper.deleteRepository(file);
+    }
+
+    @Override
+    public String readFileFromCommit(File file, String filename) throws IOException {
+        return GitHelper.readFileFromCommit(file, filename);
     }
 }

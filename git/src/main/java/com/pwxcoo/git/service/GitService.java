@@ -1,5 +1,10 @@
 package com.pwxcoo.git.service;
 
+import org.eclipse.jgit.api.errors.GitAPIException;
+
+import java.io.File;
+import java.io.IOException;
+
 /**
  * @author pwxcoo
  * @package com.pwxcoo.git.service
@@ -9,5 +14,12 @@ package com.pwxcoo.git.service;
  */
 public interface GitService {
 
-    String initRepository(String username, String repositoryName) ;
+    String createNewRepository(String username, String repositoryName) throws GitAPIException, IOException;
+
+    String createNewRepository(File file) throws GitAPIException, IOException;
+
+    void deleteRepository(File file) throws IOException;
+
+    String readFileFromCommit(File file, String filename) throws IOException;
+
 }
