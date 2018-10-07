@@ -2,9 +2,12 @@ package com.pwxcoo.github.api.rpc;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pwxcoo.git.service.GitService;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * @author pwxcoo
@@ -21,7 +24,7 @@ public class GitConsumerController {
     private GitService gitService;
 
     @RequestMapping("/initRep")
-    public String initRepository(@RequestParam String username, @RequestParam String repositoryName) {
-        return gitService.initRepository(username, repositoryName);
+    public String createNewRepository(@RequestParam String username, @RequestParam String repositoryName) throws GitAPIException, IOException {
+        return gitService.createNewRepository(username, repositoryName);
     }
 }
