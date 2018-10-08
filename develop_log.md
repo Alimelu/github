@@ -14,6 +14,8 @@
 
 ## Log
 
+- 20181007:
+    - complete code presentation module
 - 20181006:
     - user profile ui
     - discover & user_subscription in home
@@ -35,3 +37,17 @@
     - 打通 git RPC 调用流程。（dubbo + zookeeper）
     - 打通服务器部署流程。（Ali Cloud）
 
+## Design
+
+- Storage 
+    - repositories
+        - hard disk (=> NFS filesystem)
+    - user, repositories metadata...
+        - mysql
+        - redis
+- Web Service (Spring boot)
+    - Subscription (Mail + Feed)
+    - Online Repositories
+- Git Service
+    - RPC
+    - SSH
