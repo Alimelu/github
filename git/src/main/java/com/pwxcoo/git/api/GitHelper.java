@@ -1,5 +1,6 @@
 package com.pwxcoo.git.api;
 
+import com.pwxcoo.git.dto.FilesListDto;
 import com.pwxcoo.git.util.GitUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -17,6 +18,8 @@ import org.eclipse.jgit.treewalk.filter.PathFilter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author pwxcoo
@@ -84,6 +87,82 @@ public class GitHelper {
                 return fileContent;
             }
         }
+    }
+
+    private static FilesListDto getDir(TreeWalk treeWalk) throws IOException {
+        treeWalk.enterSubtree();
+
+        FilesListDto filesListDto = new FilesListDto("", new LinkedList<>());
+        String prefix = treeWalk.getPathString();
+        boolean head = true;
+
+        while (treeWalk != null){
+            if (head) {
+                filesListDto.setName(treeWalk.getPathString());
+                treeWalk.next();
+                head = false;
+            } else {
+                if (treeWalk.getPathString().startsWith(prefix) == false || treeWalk.getPathString().equals(prefix))
+                    break;
+
+                if (treeWalk.isSubtree()) {
+                    filesListDto.getChildren().add(getDir(treeWalk));
+                } else {
+                    filesListDto.getChildren().add(new FilesListDto(treeWalk.getPathString(), null));
+                    treeWalk.next();
+                }
+
+            }
+        }
+        return filesListDto;
+    }
+
+    public static List<FilesListDto> listFilesFromCommit(File file)  throws IOException {
+        List<FilesListDto> filesListDtos = new LinkedList<>();
+
+        try (Repository repository = GitUtil.openRepository(file)) {
+
+            // find the HEAD
+            ObjectId lastCommitId = repository.resolve(Constants.HEAD);
+
+            // a RevWalk allows to walk over commits based on some filtering that is defined
+            try (RevWalk revWalk = new RevWalk(repository)) {
+
+                RevCommit commit = revWalk.parseCommit(lastCommitId);
+                // and using commit's tree find the path
+                RevTree tree = commit.getTree();
+                System.out.println("Having tree: " + tree);
+
+                // now try to find a specific file
+                try (TreeWalk treeWalk = new TreeWalk(repository)) {
+
+                    treeWalk.addTree(tree);
+                    treeWalk.setRecursive(false);
+
+                    treeWalk.next();
+
+                    while (treeWalk != null) {
+                        if (treeWalk.isSubtree()) {
+                            filesListDtos.add(getDir(treeWalk));
+
+                        } else {
+                            filesListDtos.add(new FilesListDto(treeWalk.getPathString(), null));
+                            treeWalk.next();
+                        }
+
+                    }
+
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                }
+
+                revWalk.dispose();
+            }
+        }
+
+        System.out.println(filesListDtos.toString());
+
+        return filesListDtos;
     }
 
 

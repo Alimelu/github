@@ -2,12 +2,14 @@ package com.pwxcoo.git.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pwxcoo.git.api.GitHelper;
+import com.pwxcoo.git.dto.FilesListDto;
 import com.pwxcoo.git.service.GitService;
 import com.pwxcoo.git.util.GitUtil;
 import org.eclipse.jgit.api.errors.GitAPIException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author pwxcoo
@@ -26,22 +28,23 @@ public class GitServiceImpl implements GitService {
 
     @Override
     public String createNewRepository(String username, String repositoryName) throws GitAPIException, IOException {
-        return createNewRepository(GitUtil.getFile(username, repositoryName));
+        File file = GitUtil.getFile(username, repositoryName);
+        return GitHelper.createNewRepository(file).getAbsolutePath();
     }
 
     @Override
-    public String createNewRepository(File file) throws GitAPIException, IOException {
-        File f = GitHelper.createNewRepository(file);
-        return f.getAbsolutePath();
+    public void deleteRepository(String username, String repositoryName) throws IOException {
+        GitHelper.deleteRepository(GitUtil.getFile(username, repositoryName));
     }
 
     @Override
-    public void deleteRepository(File file) throws IOException {
-        GitHelper.deleteRepository(file);
+    public String readFileFromCommit(String username, String repositoryName, String filename) throws IOException {
+        return GitHelper.readFileFromCommit(GitUtil.getFile(username, repositoryName), filename);
     }
 
     @Override
-    public String readFileFromCommit(File file, String filename) throws IOException {
-        return GitHelper.readFileFromCommit(file, filename);
+    public List<FilesListDto> listFiles(String username, String repositoryName) throws IOException {
+        return GitHelper.listFilesFromCommit(GitUtil.getFile(username, repositoryName));
     }
+
 }

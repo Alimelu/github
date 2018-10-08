@@ -52,4 +52,9 @@ public class RepositoryServiceImpl implements RepositoryService{
     public RepositoryDto getRepositoryByUserIdAndRepositoryName(Long userId, String repositoryName) {
         return repositoryMapper.getRepositoryByRepositoryNameAndUserId(userId, repositoryName);
     }
+
+    @Override
+    public RepositoryDto getRepositoryByRepositoryNameAndUsername(String username, String repositoryName) {
+        return repositoryMapper.getRepositoryByRepositoryNameAndUsername(username, repositoryName);
+    }
 }

@@ -1,6 +1,6 @@
-const nowuser =window.location.pathname.substr(1);
-const app = new Vue({
-    el: '#app',
+const nowuser = window.location.pathname.substr(1);
+const user = new Vue({
+    el: '#user',
     data: {
         repositories: [],
         followers: [],
@@ -38,4 +38,4 @@ const app = new Vue({
         },
     }
 });
-app.searchRepository();
+user.searchRepository();

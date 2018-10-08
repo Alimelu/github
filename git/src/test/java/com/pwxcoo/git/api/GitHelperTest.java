@@ -44,4 +44,9 @@ public class GitHelperTest {
         Assert.assertEquals(false, fileContent  == null);
     }
 
+    @Test
+    public void testListFiles() throws IOException {
+        GitHelper.listFilesFromCommit(GitUtil.getFile("pwxcoo", "tester"));
+    }
+
 }

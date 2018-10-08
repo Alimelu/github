@@ -41,3 +41,6 @@ nohup.out
 
 ### Avatar ###
 src/main/resources/static/avatar/
+
+### Custom dir ###
+bin/

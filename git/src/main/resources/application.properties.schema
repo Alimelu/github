@@ -18,6 +18,7 @@ dubbo.application.name = github-storage
 dubbo.protocol.id = zookeeper
 dubbo.protocol.name = dubbo
 dubbo.protocol.port = 20081
+dubbo.protocol.host =
 
 ## RegistryConfig Bean
 dubbo.registry.id = my-registry

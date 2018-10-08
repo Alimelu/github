@@ -21,4 +21,6 @@ public interface RepositoryService {
     Boolean createRepository(Repository repository);
 
     RepositoryDto getRepositoryByUserIdAndRepositoryName(Long userId, String repositoryName);
+
+    RepositoryDto getRepositoryByRepositoryNameAndUsername(String username, String repositoryName);
 }

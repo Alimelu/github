@@ -28,7 +28,7 @@ const subs = new Vue({
             return moment();
         },
         searchSubscriptions: function () {
-            fetch(`/api/userSubscription/${loginName}`)
+            fetch(`/api/userSubscription/`)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);

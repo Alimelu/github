@@ -40,6 +40,9 @@ public interface RepositoryMapper {
     @Select("SELECT * FROM repository LEFT JOIN user ON repository.user_id = user.user_id WHERE repository.user_id = #{user_id} AND repository.repository_name = #{repository_name}")
     RepositoryDto getRepositoryByRepositoryNameAndUserId(@Param("user_id") Long userId, @Param("repository_name") String repositoryName);
 
+    @Select("SELECT * FROM repository LEFT JOIN user ON repository.user_id = user.user_id WHERE user.username = #{username} AND repository.repository_name = #{repository_name}")
+    RepositoryDto getRepositoryByRepositoryNameAndUsername(@Param("username") String username, @Param("repository_name") String repositoryName);
+
     @Insert("INSERT INTO repository(user_id, repository_name, description) VALUES(#{user_id}, #{repository_name}, #{description})")
     int insertRepository(@Param("user_id") Long userId, @Param("repository_name") String repositoryName, @Param("description") String description);
 }
