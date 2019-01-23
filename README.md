@@ -6,15 +6,23 @@ A mock github.
 
 Three modules in this project.
 
-### git/
+```
+github
+|
+|-git
+|-web
+|-mailer
+```
+
+### git
 
 This module is for storage. All remote repositories for users will be managed by this module, **implementing git operation using [JGit](https://www.eclipse.org/jgit/), invoked by RPC(dubbo + zookeeper), developed with Spring Boot.** (Can be optimized with NFS filesystem, stand-long mode currently)
 
-### web/
+### web
 
 This module is online github website. **implementing code presentation, github community function, management for users' own repositories, information, ssh key and more..., developed with Spring Boot.** 
 
-### mailer/ (unfinished)
+### mailer
 
 This module is for **implementing function about messsage subscription and notification**. (Kafka)
 
